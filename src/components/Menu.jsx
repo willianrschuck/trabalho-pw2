@@ -39,7 +39,11 @@ export default ({token, setToken, config, setConfig}) => {
           exact to='turmas'
           name='turmas virtuais'
         />
-        
+        {token && 
+        <Menu.Item as={NavLink}
+          exact to='/tarefa/cadastro'
+          name='Manutenção Tarefas'
+        />}
 
         <Menu.Menu position='right'>
           {token ?

@@ -1,10 +1,16 @@
-import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-router-dom';
-import Menu from './components/Menu';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Button, Card, Container, Form, Grid, Icon, Label, Message, Segment } from 'semantic-ui-react'
+import SimpleStorage from 'react-simple-storage'
+
 import { useEffect, useState } from 'react';
-import { authSuap, getToken } from './services/auth';
+import { authSuap, getToken, getTarefas } from './services/auth';
 import { getBoletim } from './api/suap';
+
+import TarefaForm from './components/tarefas/TarefaForm';
 import Turmas from './components/Turmas';
+import Menu from './components/Menu';
+import Home from './components/Home';
+
 import './App.css';
 
 function App() {
@@ -12,13 +18,47 @@ function App() {
   const [token, setToken] = useState(getToken());
   const [config, setConfig] = useState({periodo: {ano: 2021, periodo: 1}});
 
+  const [seqId, setSeqId] = useState(0);
+  const [tarefas, setTarefas] = useState(getTarefas());
+
+  useEffect(() => {
+    localStorage.setItem('TAREFAS', JSON.stringify(tarefas));
+  })
+
+  const inserir = (tarefa) => {
+    tarefa.id = seqId+1;
+    setTarefas([...tarefas, tarefa]);
+    setSeqId(tarefa.id);
+  };
+
+  const remover = (tarefa) => {
+    if (window.confirm("Remover esta tarefa?")) {
+      const lista = tarefas.filter(t => t.id !== tarefa.id);
+      setTarefas(lista);
+    }
+  };
+
+  const editar = (tarefa) => {
+    const index = tarefas.findIndex(p => p.id === tarefa.id);
+    const listaItemRemovido = tarefas.splice(0, index).concat(tarefas.splice(index + 1));
+    const listaEditada = [...listaItemRemovido, tarefa].sort((a, b) => a.id - b.id);
+    setTarefas(listaEditada);
+  }
+
   return (
     <Router>
       <Menu token={token} setToken={setToken} config={config} setConfig={setConfig}/>
+      <SimpleStorage parent={this}/>
       <Switch>
-        <Route exact path="/" render={(p) => <Boletim token={token} periodo={config.periodo}/>} />
+        <Route exact path="/" render={(p) => <Home token={token} remover={remover} tarefas={tarefas}/>} />
+        <Route exact path="/boletim" render={(p) => <Boletim token={token} periodo={config.periodo}/>} />
         <Route exact path="/login" render={() => <Login token={token} setToken={setToken}/>} />
         <Route exact path="/turmas" render={() => <Turmas token={token} setToken={setToken} periodo={config.periodo}/>} />
+        <Route exact path="/tarefa/cadastro" render={() => <TarefaForm token={token} inserir={inserir} tarefa={{id: 0, nome: '', descricao: ''}}/>} />
+        <Route exact path="/tarefa/editar/:id" render={(props) => {
+          const tarefa = tarefas.find(t => t.id === Number(props.match.params.id));
+          return (<TarefaForm token={token} editar={editar} tarefa={tarefa}/>);
+        }} />
       </Switch>
     </Router>
   );

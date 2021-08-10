@@ -1,6 +1,11 @@
 export const TOKEN_KEY = "suap-token";
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
+export const getTarefas = () => {
+  let string = localStorage.getItem('TAREFAS');
+  console.log(string)
+  return string != 'undefined' ? JSON.parse(string) : [];
+}
 
 export const login = token => {
   localStorage.setItem(TOKEN_KEY, token);
