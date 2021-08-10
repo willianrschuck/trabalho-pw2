@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Container, Form, Grid, Icon, Label, Segment } from 'semantic-ui-react'
+import { Card, Container, Icon } from 'semantic-ui-react'
 import { getTurmas } from "../api/suap";
 import ModalTurma from "./ModalTurma";
 

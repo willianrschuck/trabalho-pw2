@@ -115,7 +115,7 @@ const Login = ({token, setToken}) => {
 
   const onSubmit = async(e) => {
     e.preventDefault();
-    let [data, error] = await authSuap({username, password}, setToken);
+    let [data] = await authSuap({username, password}, setToken);
     setDetail(data?.detail);
   }
 

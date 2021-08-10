@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button, Table } from "semantic-ui-react";
 
-export default ({tarefas, remover, token}) => {
+const Home = ({tarefas, remover, token}) => {
     return (
         <Table>
             <Table.Header>
@@ -26,3 +26,5 @@ export default ({tarefas, remover, token}) => {
         </Table>
     );
 }
+
+export default Home;

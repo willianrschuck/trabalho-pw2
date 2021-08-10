@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Dimmer, Grid, Header, Icon, Image, Loader, Modal, Placeholder, Segment } from "semantic-ui-react";
+import { Button, Dimmer, Grid, Header, Icon, Image, Loader, Modal, Segment } from "semantic-ui-react";
 import { getTurma } from '../api/suap';
 
 const ModalTurma = ({turma, token}) => {

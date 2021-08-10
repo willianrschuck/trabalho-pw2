@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button, Form, Input, Label } from "semantic-ui-react";
+import { Button, Form, Input } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 
-export default ({tarefa, inserir, editar, token}) => {
+const TarefaForm = ({tarefa, inserir, editar, token}) => {
 
     const [item, setItem] = useState(tarefa);
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -41,3 +41,5 @@ export default ({tarefa, inserir, editar, token}) => {
         </Form>
     );
 }
+
+export default TarefaForm;

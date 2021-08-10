@@ -5,7 +5,7 @@ import { logout } from '../services/auth'
 import { getPeriodosLetivos } from '../api/suap'
 import './Menu.css';
 
-export default ({token, setToken, config, setConfig}) => {
+const MenuPrincipal = ({token, setToken, config, setConfig}) => {
 
   const [periodos, setPeriodos] = useState([]);
 
@@ -75,3 +75,5 @@ export default ({token, setToken, config, setConfig}) => {
   )
 
 }
+
+export default MenuPrincipal;
