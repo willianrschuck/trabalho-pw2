@@ -1,0 +1,9 @@
+.bar #navbar {
+    width: 100vw;
+    min-height: 52px;
+    padding: 0 .5rem;
+}
+
+.following.bar.light {
+    border-bottom: 1px solid black;
+}
