@@ -4,7 +4,7 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const getTarefas = () => {
   let string = localStorage.getItem('TAREFAS');
   console.log(string)
-  return string !== 'undefined' ? JSON.parse(string) : [];
+  return string === null ? [] : JSON.parse(string);
 }
 
 export const login = token => {

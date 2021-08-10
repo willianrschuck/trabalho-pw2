@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Button, Card, Container, Form, Grid, Icon, Label, Message, Segment } from 'semantic-ui-react'
-import SimpleStorage from 'react-simple-storage'
+
 
 import { useEffect, useState } from 'react';
 import { authSuap, getToken, getTarefas } from './services/auth';
@@ -48,7 +48,7 @@ function App() {
   return (
     <Router>
       <Menu token={token} setToken={setToken} config={config} setConfig={setConfig}/>
-      <SimpleStorage parent={this}/>
+      
       <Switch>
         <Route exact path="/" render={(p) => <Home token={token} remover={remover} tarefas={tarefas}/>} />
         <Route exact path="/boletim" render={(p) => <Boletim token={token} periodo={config.periodo}/>} />
